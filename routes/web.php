@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 Route::post('/form','FormController@store');
 Route::post('contact','EmailController@postContact');
+Route::get('/mail','EmailController@index');
+Route::get('/send','EmailController@send');
+
