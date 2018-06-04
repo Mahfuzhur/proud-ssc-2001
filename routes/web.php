@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('form.create');
 });
 Route::post('/form','FormController@store');
+Route::post('contact','EmailController@postContact');
