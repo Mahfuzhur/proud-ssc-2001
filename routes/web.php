@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 Route::post('/form','FormController@store');
 Route::post('contact','EmailController@postContact');
+Route::get('/admin-login','AdminController@adminLogin');
+Route::post('/admin-login-check','AdminController@adminLoginCheck');
+Route::get('/admin-dashboard','AdminController@adminDashboard');
