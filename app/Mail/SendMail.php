@@ -6,9 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Http\Request;
-use App\Registration;
-
 
 class SendMail extends Mailable
 {
@@ -21,7 +18,7 @@ class SendMail extends Mailable
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
@@ -29,18 +26,9 @@ class SendMail extends Mailable
      *
      * @return $this
      */
-    public function build(Request $request)
+    public function build()
     {
-////        return $this->view('mail',compact('email'));
-//        $id = $request->input('id');
-//        $email = $request->input('email');
-//                $client = Registration::find($id);
-//
-//                $client->request_status = 1;
-//                $password = str_random(15);
-//
-//               $client->save();
-//
-//        return $this->view('mail',['username'=>$client,'password'=>$password])->to($email);
+        return $this->view('mail')->to('mahfuzhur@gmail.com');
+
     }
 }

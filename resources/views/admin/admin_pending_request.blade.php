@@ -37,7 +37,7 @@
                             <td>{{$v_info->board}}</td>
                             <td>{{$v_info->email}}</td>
                             <td>
-                                <form action="send" method="post">
+                                <form action="accepted" method="post">
                                     {{csrf_field()}}
                                     <input type="hidden" value="{{$v_info->id}}" name="id">
                                     <input type="hidden" value="{{$v_info->email}}" name="email">

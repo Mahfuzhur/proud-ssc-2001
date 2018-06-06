@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Carbon\Carbon;
 use DB;
 use Session;
+use App\Registration;
 class AdminController extends Controller
 {
 
@@ -79,6 +80,19 @@ class AdminController extends Controller
         Session::put('current_admin_name','');
         //Session::put('message','You are successfully logout !');
         return Redirect::to('/admin-login');
+    }
+
+    public function accepted(Request $request){
+        $id = $request->input('id');
+        $email = $request->input('email');
+
+        $user = Registration::find($id);
+
+        $user->request_status = 1;
+        $user->save();
+        return redirect()->back();
+
+
     }
 
 }

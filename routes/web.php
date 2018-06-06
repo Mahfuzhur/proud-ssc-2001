@@ -27,9 +27,10 @@ Route::post('/save-user-information','UserController@saveUserInformation');
 Route::get('/user-login','UserController@userLogin');
 Route::post('/user-login-check','UserController@userLoginCheck');
 Route::get('/user-dashboard','UserController@userDashboard');
+Route::post('/accepted','AdminController@accepted');
 
 //Route::get('/mail','EmailController@index');
-Route::post('/send','EmailController@send');
+Route::get('/send','EmailController@send');
 //Route::get('/email','EmailController@email');
 
 

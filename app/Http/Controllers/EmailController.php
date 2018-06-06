@@ -33,28 +33,9 @@ class EmailController extends Controller
 //    public function index(){
 //        return view('email.mail');
 //    }
-    public function send(Request $request){
-             $id = $request->input('id');
-             $email = $request->input('email');
-                $client = Registration::find($id);
-
-
-                //$client->request_status = 1;
-
-                $client->save();
-        $data = array(
-            'email' => "mahfuzhur@gmail.com",
-            'subject' => "hello",
-            'bodyMessage' => "Hello 123"
-        );
-//            Mail::to($email)->send(new sendMail());
-        Mail::send('mail', $data, function ($message) use ($data){
-            $message->to($data['email']);
-            $message->subject($data['subject']);
-            $message->from('mahfuzhur@gmail.com');
-        });
-//        Mail::send(new SendMail());
-    }
+ public function send(){
+        Mail::send(new SendMail());
+ }
     public function email(){
         return view('email');
     }
