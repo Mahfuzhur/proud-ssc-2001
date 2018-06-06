@@ -9,6 +9,7 @@
                     <table id="datatable" class="table table-bordered">
                         <thead>
                         <tr>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>School</th>
                             <th>Address</th>
@@ -26,6 +27,10 @@
                         <tbody>
                             @foreach($registered_user_info as $v_info)
                         <tr>
+                            <?php
+                                $image_path = 'user_images/'.$v_info->user_image;
+                            ?>
+                            <td><img src="{{asset($image_path)}}" class="rounded-circle thumb-md" alt="profile-image"></td>
                             <td>{{$v_info->name}}</td>
                             <td>{{$v_info->school_name}}</td>
                             <td>{{$v_info->present_address}}</td>
