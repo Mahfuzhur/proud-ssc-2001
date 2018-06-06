@@ -19,3 +19,7 @@ Route::post('contact','EmailController@postContact');
 Route::get('/admin-login','AdminController@adminLogin');
 Route::post('/admin-login-check','AdminController@adminLoginCheck');
 Route::get('/admin-dashboard','AdminController@adminDashboard');
+Route::get('/admin-logout','AdminController@adminLogout');
+Route::get('/admin-user-list','AdminController@adminUserList');
+Route::get('/user-registration','UserController@userRegistration');
+Route::post('/save-user-information','UserController@saveUserInformation');

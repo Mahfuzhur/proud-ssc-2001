@@ -25,7 +25,7 @@
             <div class="card-box">
                 <div class="panel-heading">
                     <h4 class="text-center"> Sign In</h4>
-                    <h4 style="color: green; text-align: center;">
+                    <h4 style="color: red; text-align: center;">
                       <?php
                         $login_error = Session::get('login_error');
                         if($login_error){
