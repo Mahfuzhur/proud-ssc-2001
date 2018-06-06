@@ -95,6 +95,49 @@ class UserController extends Controller
 
     }
 
+    public function userLogin(){
+
+        return view('user.user_login');
+    }
+
+    public function userLoginCheck(Request $request){
+
+        $email = $request->user_email;
+        $password = md5($request->user_password);
+
+        $user_info = DB::table('registration')
+                        ->select('*')
+                        ->where('email',$email)
+                        ->where('password',$password)
+                        ->first();                        
+
+        if(!empty($user_info)){
+            Session::put('current_user_id',$user_info->id);
+            Session::put('current_user_name',$user_info->name);
+            return redirect::to('/user-dashboard');
+        }
+        else{
+            Session::put('login_error','Email Or Password Invalid !');
+            return redirect::to('/user-login');
+        }
+    }
+
+    public function userDashboard(){
+        // $user_id = Session::get('current_user_id');
+        // $single_user_info = DB::table('registration')
+        //                      ->where('id', $user_id)
+        //                      ->get();
+        //                      // echo "<pre>";
+        //                      // print_r($single_user_info);
+        //                      // exit();
+        //  $user_info = view('user.user_dashboard')
+        //              ->with('user_info', $single_user_info);
+        $info = view('user.user_dashboard');
+        return view('user.user_master')
+                ->with('user_main_content', $info);
+                     // ->with('user_main_content',$user_info);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

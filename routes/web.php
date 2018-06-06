@@ -23,3 +23,6 @@ Route::get('/admin-logout','AdminController@adminLogout');
 Route::get('/admin-user-list','AdminController@adminUserList');
 Route::get('/user-registration','UserController@userRegistration');
 Route::post('/save-user-information','UserController@saveUserInformation');
+Route::get('/user-login','UserController@userLogin');
+Route::post('/user-login-check','UserController@userLoginCheck');
+Route::get('/user-dashboard','UserController@userDashboard');
