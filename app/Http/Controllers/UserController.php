@@ -20,6 +20,16 @@ class UserController extends Controller
         //
     }
 
+    public function auth_check(){
+
+        $current_admin_id = Session::get('current_admin_id');
+        if($current_admin_id != NULL){
+            return Redirect::to('/user-dashboard');
+        }else{
+            return Redirect::to('/user-login');
+        }
+    }
+
     public function userRegistration(){
 
         return view('user.user_registration');
@@ -109,11 +119,13 @@ class UserController extends Controller
                         ->select('*')
                         ->where('email',$email)
                         ->where('password',$password)
+                        ->where('request_status',1)
                         ->first();                        
 
         if(!empty($user_info)){
             Session::put('current_user_id',$user_info->id);
             Session::put('current_user_name',$user_info->name);
+            Session::put('current_user_image',$user_info->user_image);
             return redirect::to('/user-dashboard');
         }
         else{
@@ -123,19 +135,80 @@ class UserController extends Controller
     }
 
     public function userDashboard(){
-        // $user_id = Session::get('current_user_id');
-        // $single_user_info = DB::table('registration')
-        //                      ->where('id', $user_id)
-        //                      ->get();
-        //                      // echo "<pre>";
-        //                      // print_r($single_user_info);
-        //                      // exit();
-        //  $user_info = view('user.user_dashboard')
-        //              ->with('user_info', $single_user_info);
-        $info = view('user.user_dashboard');
+        // $this->auth_check();
+        $user_id = Session::get('current_user_id');
+        $current_user_info = DB::table('registration')
+                             ->where('id', $user_id)
+                             ->first();
+        $all_user_info = DB::table('registration')
+                        ->orderby('id','desc')
+                        ->get();
+
+        $info = view('user.user_dashboard')
+                ->with('current_user_info',$current_user_info)
+                ->with('all_user_info',$all_user_info);
         return view('user.user_master')
                 ->with('user_main_content', $info);
-                     // ->with('user_main_content',$user_info);
+    }
+
+    public function userSingleInfo($id){
+
+        $user_id = Session::get('current_user_id');
+        $current_user_info = DB::table('registration')
+                             ->where('id', $user_id)
+                             ->first();
+        $single_user_info = DB::table('registration')
+                        ->where('id', $id)
+                        ->first();
+
+        $info = view('user.single_user')
+                ->with('current_user_info',$current_user_info)
+                ->with('single_user_info',$single_user_info);
+        return view('user.user_master')
+                ->with('user_main_content', $info);
+    }
+
+    public function changePassword(Request $request,$id){
+
+        $old_password = md5($request->old_password);
+        $new_password = md5($request->new_password);
+        $confirm_new_password = md5($request->confirm_new_password);
+
+        $password_info = DB::table('registration')
+                        ->where('password',$old_password)
+                        ->first();
+        if(isset($password_info)){
+
+            if ($new_password == $confirm_new_password) {
+                $data = array();
+                $data['password'] = $new_password;
+                DB::table('registration')
+                ->where('id',$id)
+                ->update($data);
+                Session::put('update_password_message','Password Updated Successfully !');
+                return redirect::to('/user-dashboard');
+            }
+            else{
+                Session::put('new_password_err','New Password and Confirm password Not Match !');
+                return redirect::to('/user-dashboard');
+            }
+        }
+        else{
+
+            Session::put('old_password_err','Old Password Not Match !');
+            return redirect::to('/user-dashboard');
+        }
+
+
+
+    }
+
+     public function userLogout(){
+
+        Session::put('current_user_id','');
+        Session::put('current_user_name','');
+        //Session::put('message','You are successfully logout !');
+        return Redirect::to('/user-login');
     }
 
     /**

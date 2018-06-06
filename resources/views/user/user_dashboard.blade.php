@@ -15,21 +15,72 @@
             <div class="col-md-4 col-lg-3">
                 <div class="profile-detail card-box">
                     <div>
-                        <img src="assets/images/users/avatar-2.jpg" class="rounded-circle" alt="profile-image">
+                        <?php
+                            $image_path = 'user_images/'.$current_user_info->user_image;
+                        ?>
+                        <img src="{{asset($image_path)}}" class="rounded-circle" alt="profile-image">
 
                         <ul class="list-inline status-list m-t-20">
                             <li class="list-inline-item">
-                                <h3 class="text-primary m-b-5">456</h3>
-                                <p class="text-muted">Followings</p>
+                                <a href="{{URL::to('/single-user-info/'.$current_user_info->id)}}"><h3 class="text-primary m-b-5">Profile</h3></a>
+                                <p class="text-muted">{{$current_user_info->name}}</p>
                             </li>
-
-                            <li class="list-inline-item">
-                                <h3 class="text-success m-b-5">5864</h3>
-                                <p class="text-muted">Followers</p>
+                            <li class="list-inline-item" id="change_password">
+                                <button class="btn btn-primary" onclick="myFunction()">Change Password</button>
                             </li>
                         </ul>
 
-                        <button type="button" class="btn btn-pink btn-custom btn-rounded waves-effect waves-light">Follow</button>
+                        <div id="password_form">
+                            <span style="color: green; text-align: center;">
+                              <?php
+                                $update_password_message = Session::get('update_password_message');
+                                if($update_password_message){
+                                  echo $update_password_message;
+                                  Session::put('update_password_message','');
+                                }
+                              ?>
+                            </span>
+                            <form class="form-horizontal m-t-20" action="{{URL::to('/change-password/'.$current_user_info->id)}}" method="post">
+                                {{csrf_field()}}
+                                    <label>Old Password</label>
+                                    <input type="text" name="old_password" class="form-control" required="">
+                                    <span style="color: red; text-align: center;">
+                                      <?php
+                                        $old_password_err = Session::get('old_password_err');
+                                        if($old_password_err){
+                                          echo $old_password_err;
+                                          Session::put('old_password_err','');
+                                        }
+                                      ?>
+                                    </span>
+                                    <label>New Password</label>
+                                    <input type="text" name="new_password" class="form-control" required="">
+                                    <label>Confirm New Password</label>
+                                    <input type="text" name="confirm_new_password" class="form-control" required=""><span style="color: red; text-align: center;">
+                                      <?php
+                                        $new_password_err = Session::get('new_password_err');
+                                        if($new_password_err){
+                                          echo $new_password_err;
+                                          Session::put('new_password_err','');
+                                        }
+                                      ?>
+                                    </span><br>
+                                    <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                        </div>
+
+                        <script>
+                            function myFunction() {
+                                var x = document.getElementById("password_form");
+                                if (x.style.display === "none") {
+                                    x.style.display = "block";
+                                } else {
+                                    x.style.display = "none";
+                                }
+                            }
+                            </script>
+
+                        <!-- <button type="button" class="btn btn-pink btn-custom btn-rounded waves-effect waves-light">Follow</button>
 
                         <hr>
                         <h4 class="text-uppercase font-18 font-600">About Me</h4>
@@ -46,10 +97,10 @@
 
                             <p class="text-muted font-13"><strong>Location :</strong> <span class="m-l-15">USA</span></p>
 
-                        </div>
+                        </div> -->
 
 
-                        <div class="button-list m-t-20">
+                        <!-- <div class="button-list m-t-20">
                             <button type="button" class="btn btn-facebook waves-effect waves-light">
                                 <i class="fa fa-facebook"></i>
                             </button>
@@ -66,7 +117,7 @@
                                 <i class="fa fa-dribbble"></i>
                             </button>
 
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -76,28 +127,44 @@
 
             <div class="col-lg-9 col-md-8">
                 <form method="post" class="card-box">
-                    <span class="input-icon icon-right">
-                        <textarea rows="2" class="form-control"
-                                  placeholder="Post a new message"></textarea>
-                    </span>
-                    <div class="p-t-10 pull-right">
-                        <a class="btn btn-sm btn-primary waves-effect waves-light">Send</a>
-                    </div>
-                    <ul class="nav nav-pills profile-pills m-t-10">
-                        <li>
-                            <a href="#"><i class="fa fa-user"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-location-arrow"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class=" fa fa-camera"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-smile-o"></i></a>
-                        </li>
-                    </ul>
+                    
+                <div class="card-box table-responsive">
+                    <h3 class="m-t-0 header-title">User List</h3>                                   
+                    <table id="datatable" class="table">
+                        <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>School</th>
+                            <th>Address</th>
+                            <th>Organisation</th>
+                            <th>Designation</th>
+                            <th>Board</th>
+                            <th>Details</th>
+                            
+                        </tr>
+                        </thead>
 
+
+                        <tbody>
+                            @foreach($all_user_info as $v_info)
+                        <tr>
+                            <?php
+                                $image_path = 'user_images/'.$v_info->user_image;
+                            ?>
+                            <td><img src="{{asset($image_path)}}" class="rounded-circle thumb-md" alt="profile-image"></td>
+                            <td>{{$v_info->name}}</td>
+                            <td>{{$v_info->school_name}}</td>
+                            <td>{{$v_info->present_address}}</td>
+                            <td>{{$v_info->working_organisation}}</td>
+                            <td>{{$v_info->designation}}</td>
+                            <td>{{$v_info->board}}</td>
+                            <td><a href="{{URL::to('/single-user-info/'.$v_info->id)}}">Details</a></td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>                
                 </form>
                 
             </div>
