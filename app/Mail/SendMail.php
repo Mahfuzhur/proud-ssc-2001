@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Http\Request;
+use App\Registration;
+
+
+class SendMail extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build(Request $request)
+    {
+////        return $this->view('mail',compact('email'));
+//        $id = $request->input('id');
+//        $email = $request->input('email');
+//                $client = Registration::find($id);
+//
+//                $client->request_status = 1;
+//                $password = str_random(15);
+//
+//               $client->save();
+//
+//        return $this->view('mail',['username'=>$client,'password'=>$password])->to($email);
+    }
+}

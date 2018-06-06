@@ -18,6 +18,8 @@
                             <th>Designation</th>
                             <th>Board</th>
                             <th>Action</th>
+                            <th>Email</th>
+
                         </tr>
                         </thead>
 
@@ -33,7 +35,15 @@
                             <td>{{$v_info->working_organisation}}</td>
                             <td>{{$v_info->designation}}</td>
                             <td>{{$v_info->board}}</td>
-                            <td><a href="" class="btn btn-success btn-sm">Accept</a></td>
+                            <td>{{$v_info->email}}</td>
+                            <td>
+                                <form action="send" method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="{{$v_info->id}}" name="id">
+                                    <input type="hidden" value="{{$v_info->email}}" name="email">
+                                    <button type="submit" value="send" class="btn btn-success btn-sm">Accept</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                         </tbody>
