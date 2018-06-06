@@ -27,6 +27,7 @@ Route::post('/save-user-information','UserController@saveUserInformation');
 Route::get('/user-login','UserController@userLogin');
 Route::post('/user-login-check','UserController@userLoginCheck');
 Route::get('/user-dashboard','UserController@userDashboard');
+
 Route::post('/accepted','AdminController@accepted');
 
 //Route::get('/mail','EmailController@index');
@@ -34,4 +35,9 @@ Route::get('/send','EmailController@send');
 //Route::get('/email','EmailController@email');
 
 
+
+
+Route::get('/single-user-info/{id}','UserController@userSingleInfo');
+Route::get('/user-logout','UserController@userLogout');
+Route::post('/change-password/{id}','UserController@changePassword');
 

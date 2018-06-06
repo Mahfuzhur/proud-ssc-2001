@@ -19,9 +19,9 @@ class AdminController extends Controller
 
         $current_admin_id = Session::get('current_admin_id');
         if($current_admin_id != NULL){
-            return Redirect::to('/admin-dashboard');
+            return 1;
         }else{
-            return Redirect::to('/admin-login');
+            return 0;
         }
     }
 
@@ -53,14 +53,20 @@ class AdminController extends Controller
     }
 
     public function adminDashboard(){
-        $this->auth_check();
-        $requested_user_info = DB::table('registration')
+       // Session::get('current_admin_id') !=NULL
+        if($this->auth_check() ==1){
+            $requested_user_info = DB::table('registration')
                             ->where('request_status',0)
                             ->get();
         $user_info = view('admin.admin_pending_request')
                     ->with('requested_user_info', $requested_user_info);
         return view('admin.admin_master')
                     ->with('admin_main_content',$user_info);
+        }
+        else{
+            return Redirect::to('/admin-login');
+        }
+        
     }
 
     public function adminUserList(){
