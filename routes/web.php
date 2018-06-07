@@ -22,6 +22,7 @@ Route::get('/notice-board','HomePageController@noticeBoard');
 Route::get('/contact-us','HomePageController@contactUs');
 Route::post('/form','FormController@store');
 Route::post('contact','EmailController@postContact');
+
 Route::get('/admin-login','AdminController@adminLogin');
 Route::post('/admin-login-check','AdminController@adminLoginCheck');
 Route::get('/admin-dashboard','AdminController@adminDashboard');
@@ -32,6 +33,17 @@ Route::post('/save-user-information','UserController@saveUserInformation');
 Route::get('/user-login','UserController@userLogin');
 Route::post('/user-login-check','UserController@userLoginCheck');
 Route::get('/user-dashboard','UserController@userDashboard');
+
+Route::post('/accepted','AdminController@accepted');
+
+//Route::get('/mail','EmailController@index');
+Route::get('/send','EmailController@send');
+//Route::get('/email','EmailController@email');
+
+
+
+
 Route::get('/single-user-info/{id}','UserController@userSingleInfo');
 Route::get('/user-logout','UserController@userLogout');
 Route::post('/change-password/{id}','UserController@changePassword');
+

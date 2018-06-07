@@ -18,6 +18,7 @@
                             <th>Organisation</th>
                             <th>Designation</th>
                             <th>Board</th>
+                            <th>Email</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -38,6 +39,7 @@
                             <td>{{$v_info->working_organisation}}</td>
                             <td>{{$v_info->designation}}</td>
                             <td>{{$v_info->board}}</td>
+                            <td>{{$v_info->email}}</td>
                             <td>
                                 <a href=""><i class="md md-edit" title="Edit"></i></a>
                                 <a href=""><i class="md md-close" title="Delete"></i></a>
