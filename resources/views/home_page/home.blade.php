@@ -60,7 +60,4 @@
     </div>
   </footer> <!-- site-footer -->
 </div><!-- main-content -->
-<div id="result">
-                
-            </div> 
 @endsection
