@@ -18,9 +18,9 @@ class AdminController extends Controller
 
         $current_admin_id = Session::get('current_admin_id');
         if($current_admin_id != NULL){
-            return 1;
+            return TRUE;
         }else{
-            return 0;
+            return FALSE;
         }
     }
 
@@ -69,14 +69,18 @@ class AdminController extends Controller
     }
 
     public function adminUserList(){
+        if($this->auth_check() ==1){
 
-        $registered_user_info = DB::table('registration')
-                            ->where('request_status',1)
-                            ->get();
-        $user_info = view('admin.admin_registered_user')
-                    ->with('registered_user_info',$registered_user_info);
-        return view('admin.admin_master')
-                    ->with('admin_main_content',$user_info);
+            $registered_user_info = DB::table('registration')
+                                ->where('request_status',1)
+                                ->get();
+            $user_info = view('admin.admin_registered_user')
+                        ->with('registered_user_info',$registered_user_info);
+            return view('admin.admin_master')
+                        ->with('admin_main_content',$user_info);
+        }else{
+            return Redirect::to('/admin-login');
+        }
     }
 
     public function adminLogout(){

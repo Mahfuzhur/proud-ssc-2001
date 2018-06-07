@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('form.create');
-});
+// Route::get('/', function () {
+//     return view('form.create');
+// });
+Route::get('/','HomePageController@home');
+Route::get('/founder-member','HomePageController@founderMember');
+Route::get('/gallery','HomePageController@gallery');
+Route::get('/registration','HomePageController@registration');
+Route::get('/notice-board','HomePageController@noticeBoard');
+Route::get('/contact-us','HomePageController@contactUs');
 Route::post('/form','FormController@store');
 Route::post('contact','EmailController@postContact');
 Route::get('/admin-login','AdminController@adminLogin');
