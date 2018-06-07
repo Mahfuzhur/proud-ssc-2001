@@ -22,11 +22,11 @@ class UserController extends Controller
 
     public function auth_check(){
 
-        $current_admin_id = Session::get('current_admin_id');
-        if($current_admin_id != NULL){
-            return Redirect::to('/user-dashboard');
+        $current_user_id = Session::get('current_user_id');
+        if($current_user_id != NULL){
+            return TRUE;
         }else{
-            return Redirect::to('/user-login');
+            return FALSE;
         }
     }
 
@@ -135,20 +135,23 @@ class UserController extends Controller
     }
 
     public function userDashboard(){
-        // $this->auth_check();
-        $user_id = Session::get('current_user_id');
-        $current_user_info = DB::table('registration')
-                             ->where('id', $user_id)
-                             ->first();
-        $all_user_info = DB::table('registration')
-                        ->orderby('id','desc')
-                        ->get();
+        if($this->auth_check() ==1){
+            $user_id = Session::get('current_user_id');
+            $current_user_info = DB::table('registration')
+                                 ->where('id', $user_id)
+                                 ->first();
+            $all_user_info = DB::table('registration')
+                            ->orderby('id','desc')
+                            ->get();
 
-        $info = view('user.user_dashboard')
-                ->with('current_user_info',$current_user_info)
-                ->with('all_user_info',$all_user_info);
-        return view('user.user_master')
-                ->with('user_main_content', $info);
+            $info = view('user.user_dashboard')
+                    ->with('current_user_info',$current_user_info)
+                    ->with('all_user_info',$all_user_info);
+            return view('user.user_master')
+                    ->with('user_main_content', $info);
+        }else{
+            return Redirect::to('/user-login');
+        }
     }
 
     public function userSingleInfo($id){
