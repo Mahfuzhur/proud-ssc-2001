@@ -107,6 +107,7 @@ a {
 	position: fixed;
 	top: 0;
 	width: 100%;
+  z-index: 999;
 }
 .header-main{
 	background: #7e57c2;
@@ -305,3 +306,48 @@ label {
     font-size: 42px;
 }
 
+
+
+/*-----------------------------------------------------------
+ * 05. Founder Member
+ * ---------------------------------------------------------- */
+.member-img{
+  border: 2px solid #ccc; 
+}
+
+.member-role{
+  font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 10px;
+    text-align: center;
+    letter-spacing: .5px;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.founder-member{
+  margin-top: 25px;
+}
+
+.founder-member .row{
+  margin-bottom: 30px;
+}
+
+.member-discription{
+  color: #000;
+  font-weight: 500;
+}
+
+.member-title{
+  font-size: 18px;
+    font-weight: 600;
+    padding-right: 5px;
+    letter-spacing: .5px
+}
+
+.member-discription .member-activity ol{
+  list-style-position: inside;
+    list-style-type: disc;
+    line-height: 1;
+    margin-bottom: 10px;
+}
