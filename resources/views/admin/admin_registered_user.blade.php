@@ -11,15 +11,11 @@
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>School</th>
-                            <th>Address</th>
-                            <th>Mobile</th>
-                            <th>Occupation</th>
-                            <th>Organisation</th>
-                            <th>Designation</th>
-                            <th>Board</th>
                             <th>Email</th>
+                            <th>Registration Card</th>
+                            <th>Details</th>
                             <th>Action</th>
+                            
                         </tr>
                         </thead>
 
@@ -29,22 +25,21 @@
                         <tr>
                             <?php
                                 $image_path = 'user_images/'.$v_info->user_image;
+                                $reg_card_image_path = 'user_images/'.$v_info->reg_card_image;
                             ?>
-                            <td><img src="{{asset($image_path)}}" class="rounded-circle thumb-md" alt="profile-image"></td>
+                            <td><a href="{{asset($image_path)}}" target="_blank"><img src="{{asset($image_path)}}" class="rounded-circle thumb-md" alt="profile-image"></a></td>
                             <td>{{$v_info->name}}</td>
-                            <td>{{$v_info->school_name}}</td>
-                            <td>{{$v_info->present_address}}</td>
-                            <td>{{$v_info->mobile}}</td>
-                            <td>{{$v_info->occupation}}</td>
-                            <td>{{$v_info->working_organisation}}</td>
-                            <td>{{$v_info->designation}}</td>
-                            <td>{{$v_info->board}}</td>
                             <td>{{$v_info->email}}</td>
+                            <td><a href="{{asset($image_path)}}" target="_blank"><img src="{{asset($reg_card_image_path)}}" class="rounded-circle thumb-md" alt="profile-image"></a></td>
+                            <td><a href="{{URL::to('/admin-single-user-info/'.$v_info->id)}}">View Details</a></td>
                             <td>
-                                <a href=""><i class="md md-edit" title="Edit"></i></a>
-                                <a href=""><i class="md md-close" title="Delete"></i></a>
-                                <a href="" title="View Details">Profile</a>
+                                <form action="{{URL::to('/suspend-user')}}" method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="{{$v_info->id}}" name="id">
+                                    <button type="submit" value="send" class="btn btn-danger btn-sm">Suspend</button>
+                                </form>
                             </td>
+                            
                         </tr>
                         @endforeach
                         </tbody>

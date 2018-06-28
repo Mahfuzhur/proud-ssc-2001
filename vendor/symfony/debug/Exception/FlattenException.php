@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Debug\Exception;
 
+use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
@@ -41,6 +42,8 @@ class FlattenException
         if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
             $headers = array_merge($headers, $exception->getHeaders());
+        } elseif ($exception instanceof RequestExceptionInterface) {
+            $statusCode = 400;
         }
 
         if (null === $statusCode) {
@@ -154,7 +157,7 @@ class FlattenException
         return $this->previous;
     }
 
-    public function setPrevious(FlattenException $previous)
+    public function setPrevious(self $previous)
     {
         $this->previous = $previous;
     }
@@ -237,6 +240,10 @@ class FlattenException
                 $result[$key] = array('null', null);
             } elseif (is_bool($value)) {
                 $result[$key] = array('boolean', $value);
+            } elseif (is_int($value)) {
+                $result[$key] = array('integer', $value);
+            } elseif (is_float($value)) {
+                $result[$key] = array('float', $value);
             } elseif (is_resource($value)) {
                 $result[$key] = array('resource', get_resource_type($value));
             } else {

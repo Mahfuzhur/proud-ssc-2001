@@ -67,8 +67,8 @@
 
                         <div class="form-group text-center m-t-40">
                             <div class="col-12">
-                                <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light"
-                                        type="submit">Log In
+                                <button class="btn btn-block text-uppercase waves-effect waves-light"
+                                        type="submit" style="background-color: #F25D0F !important">Log In
                                 </button>
                             </div>
                         </div>

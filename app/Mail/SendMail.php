@@ -28,7 +28,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail')->to('mahfuzhur@gmail.com');
+        return $this->view('mail')->to('mahfuzhur@gmail.com')->from('info@proudssc2001bd.com')->subject('conformation');
 
     }
 }

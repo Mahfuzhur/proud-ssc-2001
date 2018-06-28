@@ -31,7 +31,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="{{asset('/user-dashboard')}}" class="logo"><i class="icon-magnet icon-c-logo"></i><span>Dashboard</a>
+                        <a href="{{asset('/')}}" class="logo"><i class="icon-magnet icon-c-logo"></i><span>Dashboard</a>
                         <!-- Image Logo here -->
                         <!--<a href="index.html" class="logo">-->
                         <!--<i class="icon-c-logo"> <img src="assets/images/logo_sm.png" height="42"/> </i>-->
@@ -118,7 +118,80 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
+                    <div class="col-md-12">
+                <div class="profile-detail card-box">
+                    <div>
+                        <?php
+                            $image_path = 'user_images/'.$current_user_info->user_image;
+                        ?>
+                        <img src="{{asset($image_path)}}" class="rounded-circle" alt="profile-image">
+
+                        <ul class="list-inline status-list m-t-20">
+                            <li class="list-inline-item">
+                                <a href="{{URL::to('/single-user-info/'.$current_user_info->id)}}"><h3 class="text-primary m-b-5">Profile</h3></a>
+                                <p class="text-muted">{{$current_user_info->name}}</p>
+                            </li>
+                            <li class="list-inline-item" id="change_password">
+                                <button class="btn btn-primary" onclick="myFunction()">Change Password</button>
+                            </li>
+                        </ul>
+
+                        <div id="password_form">
+                            <span style="color: green; text-align: center;">
+                              <?php
+                                $update_password_message = Session::get('update_password_message');
+                                if($update_password_message){
+                                  echo $update_password_message;
+                                  Session::put('update_password_message','');
+                                }
+                              ?>
+                            </span>
+                            <form class="form-horizontal m-t-20" action="{{URL::to('/change-password/'.$current_user_info->id)}}" method="post">
+                                {{csrf_field()}}
+                                    <label>Old Password</label>
+                                    <input type="text" name="old_password" class="form-control" required="">
+                                    <span style="color: red; text-align: center;">
+                                      <?php
+                                        $old_password_err = Session::get('old_password_err');
+                                        if($old_password_err){
+                                          echo $old_password_err;
+                                          Session::put('old_password_err','');
+                                        }
+                                      ?>
+                                    </span>
+                                    <label>New Password</label>
+                                    <input type="text" name="new_password" class="form-control" required="">
+                                    <label>Confirm New Password</label>
+                                    <input type="text" name="confirm_new_password" class="form-control" required=""><span style="color: red; text-align: center;">
+                                      <?php
+                                        $new_password_err = Session::get('new_password_err');
+                                        if($new_password_err){
+                                          echo $new_password_err;
+                                          Session::put('new_password_err','');
+                                        }
+                                      ?>
+                                    </span><br>
+                                    <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                        </div>
+
+                        <script>
+                            function myFunction() {
+                                var x = document.getElementById("password_form");
+                                if (x.style.display === "none") {
+                                    x.style.display = "block";
+                                } else {
+                                    x.style.display = "none";
+                                }
+                            }
+                            </script>
+
+                       
+                    </div>
+
+                </div>
+
+            </div>
                 </div>
             </div>
             <!-- Left Sidebar End -->

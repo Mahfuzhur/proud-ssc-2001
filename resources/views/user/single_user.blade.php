@@ -74,7 +74,8 @@
 
             <div class="col-lg-9 col-md-8">
                 <form method="post" class="card-box">
-                     <h5>Details Information</h5><hr>
+                     <h5>Details Information</h5>
+                     <a href="{{URL::to('/edit-user-profile/'.$single_user_info->id)}}" class="pull-right" style="margin: -40px 0;">Edit Profile</a><hr>
                     <div class="row">
                         <table style="font-size: 18px; margin-left: 15px;">
                             <tbody>

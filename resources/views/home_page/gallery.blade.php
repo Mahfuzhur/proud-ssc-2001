@@ -1,71 +1,92 @@
 @extent('home_page_master')
 @section('home_page_main_content')
-<div class='main-content'>
-  <div class='main-content-wrap'>
-    <!-- Image Gallery -->
-    <h1 class="content-header">Image Gallery:</h1>
-    <div class='image-gallery'>
+<div class="col-md-9">
+  <div class='main-content'>
+    <div class='main-content-wrap'>
+      <h1 class="content-header">Gallery</h1>
 
-      <div class="responsive">
-        <div class="gallery">
-          <a target="_blank" href="{{asset('home_page_assets/img/gallery_img1.jpg')}}">
-            <img src="{{asset('home_page_assets/img/gallery_img1.jpg')}}" alt="Trolltunga Norway" width="300" height="200">
-          </a>
-        </div>
-      </div>
+     <!--  Gallery isotope start -->
 
-      <div class="responsive">
-        <div class="gallery">
-          <a target="_blank" href="{{asset('home_page_assets/img/gallery_img1.jpg')}}">
-            <img src="{{asset('home_page_assets/img/gallery_img1.jpg')}}" alt="Forest" width="600" height="400">
-          </a>
-        </div>
-      </div>
+        <section id="works" class="section">
+          <div class="mtcon">       
+            <div class="section-container">
 
-      <div class="responsive">
-        <div class="gallery">
-          <a target="_blank" href="{{asset('home_page_assets/img/gallery_img1.jpg')}}">
-            <img src="{{asset('home_page_assets/img/gallery_img1.jpg')}}" alt="Northern Lights" width="600" height="400">
-          </a>
-        </div>
-      </div>
+              <!-- Portfolio -->
+              <div class="row">
+                <!-- #options -->
+                <div id="options" class="clearfix">
+                    <ul>
+                      <li><a href="{{URL::to('/gallery')}}" data-option-value=".webdesign" class="selected">All</a></li>
+                      <?php
+                        foreach ($all_category_info as $v_category) {
+                         $id = Crypt::encrypt($v_category->category_id);
+                      ?>
+                        <li><a href="{{URL::to('/gallery/'.$id)}}" class="selected">{{$v_category->category_name}}</a></li>
+                        <!-- <li><a href="#filter" data-option-value=".webdesign">Iftar Mahfil</a></li>
+                        <li><a href="#filter" data-option-value=".uidesign">Event2 iftar party</a></li>
+                        <li><a href="#filter" data-option-value=".branding">Event3</a></li> -->
+                        <?php
+                          }
+                        ?>
+                       
+                    </ul>
+                </div> 
+                <!-- #options end-->
 
-      <div class="responsive">
-        <div class="gallery">
-          <a target="_blank" href="{{asset('home_page_assets/img/gallery_img1.jpg')}}">
-            <img src="{{asset('home_page_assets/img/gallery_img1.jpg')}}" alt="Mountains" width="600" height="400">
-          </a>
-        </div>
-      </div>
 
-      <div class="responsive">
-        <div class="gallery">
-          <a target="_blank" href="{{asset('home_page_assets/img/gallery_img1.jpg')}}">
-            <img src="{{asset('home_page_assets/img/gallery_img1.jpg')}}" alt="Northern Lights" width="600" height="400">
-          </a>
-        </div>
-      </div>
+              <!-- heading -->
+              <!--<div class="row clearfix">-->
+              <!--  <h2 class="mtcon-title">Works</h2>-->
+              <!--  <div class="short-dec">-->
+              <!--    <p>The Sky People have sent us a message... that they can take whatever they want. That no one can stop them. Well, we will send them a messa that they can take whatever they want. That no one can stop them. Well, we w! </p>-->
+              <!--  </div>-->
+              <!--</div>  -->
+              <!-- /heading -->
 
-      <div class="responsive">
-        <div class="gallery">
-          <a target="_blank" href="{{asset('home_page_assets/img/gallery_img1.jpg')}}">
-            <img src="{{asset('home_page_assets/img/gallery_img1.jpg')}}" alt="Mountains" width="600" height="400">
-          </a>
-        </div>
-      </div>
+                <!-- portfolio items -->  
+                <div id="portfolio" class="clearfix"> 
+                 <?php
+                    foreach ($all_gallery_image as $v_image) {
+                     $image_path = 'gallery_images/'.$v_image->file_name;
+                 ?>
+                  <div class="block webdesign">
+                    <div class="view view-first">
+                      <div class="tringle"></div>
+                      <img class="img-responsive" src="{{asset($image_path)}}" alt="" style="height: 50%;width: 100%">
+                      <a href="{{asset($image_path)}}" class="mask">
+                          <?php
+                        if($v_image->image_title){
+                      ?>
+                      <h5 class='gallery-title'>{{$v_image->image_title}}</h5>
+                      <?php
+                        }else{
+                      ?>
+                      <h5>&nbsp;</h5>
+                      <?php
+                        }
+                      ?>
+                      </a>
+                    </div>
+                    
+                  </div>
+                  <?php
+                    }
+                  ?>
+                  
+                  
 
-      <div class="clearfix"></div>
-    </div><!-- .image-gallery -->
-  </div>
-  <footer id="site-footer">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="copyright">&copy; 2018 :  All rights reserved.</div>
-      </div>
-      <div class="col-sm-6">
-        <div class="designed-by pull-right">Designed & Developed By <a href="http://webvisiondigital.com/" target="_blank">@webvisiondigital</a></div>
-      </div>
+                </div>
+                <!-- /portfolio items end-->
+              </div>
+              <!-- /Portfolio end -->
+              
+            </div>
+          </div>
+        </section>
+
+    <!--  Gallery isotope end -->
+
     </div>
-  </footer> <!-- site-footer -->
+  </div>
 </div><!-- main-content -->
 @endsection

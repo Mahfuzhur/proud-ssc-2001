@@ -23,6 +23,16 @@ function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 
 <div class="w3l-main">
 	<div class="w3l-from">
+		@if (count($errors) > 0)
+		<div class="alert alert-danger">
+		  <strong>Whoops!</strong> There were some problems with your input.<br><br>
+		  <ul>
+		    @foreach ($errors->all() as $error)
+		        <li>{{ $error }}</li>
+		    @endforeach
+		  </ul>
+		</div>
+		@endif
 		<form action="{{URL::to('/save-user-information')}}" method="post" enctype="multipart/form-data">
 		     {{csrf_field()}}
 		 <!--   <div style="float: right; margin-top: -25px">-->
@@ -47,9 +57,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 			<div class="w3l-user">
 				<label class="head">Are you one of the GPA 5.00 holder in SSC 2001?<span class="w3l-star"> * </span></label>
 				<label>Yes</label>
-				<input type="radio" name="gpa" value="5" class="form-control" placeholder="">
+				<input type="radio" name="gpa" value="5" class="form-control" placeholder="" required="">
 				<label>No</label>
-				<input type="radio" name="gpa" value="4" class="form-control" placeholder="">
+				<input type="radio" name="gpa" value="4" class="form-control" placeholder="" required="">
 			</div>
 			
 			<div class="clear"></div>
@@ -85,7 +95,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 			<div class="clear"></div>
 			</div> -->
 
-			<div class="w3l-user">
+			<!-- <div class="w3l-user">
 				<label class="head">Present Address (Optional)</label>
 				<input type="text" name="presentAddress" class="form-control" placeholder="Enter Present Address">
 			</div>
@@ -115,7 +125,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 				<label class="head">District<span class="w3l-star"> * </span></label>
 				<input type="text" name="parmanentdistrict" class="form-control" placeholder="Enter Parmanent District" required="">
 			</div>
-			<div class="clear"></div>
+			<div class="clear"></div> -->
 
 			<div class="w3l-num">
 				<label class="head">Mobile Number<span class="w3l-star"> * </span></label>
@@ -132,9 +142,13 @@ function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 				<input type="text"  name="occupation" class="form-control" placeholder="Enter Occupation" required="">
 			</div>
 			<div class="w3l-sym">
+				<label class="head">Home District<span class="w3l-star"> * </span></label>
+				<input type="text" name="home_district" class="form-control" placeholder="Enter Home district" required="">
+			</div>
+			<!-- <div class="w3l-sym">
 				<label class="head">Expertise<span class="w3l-star"> * </span></label>
 				<input type="text" name="expertise" class="form-control" placeholder="Enter Expertise" required="">
-			</div>
+			</div> -->
 			<div class="clear"></div>
 
 			<div class="w3l-user">
@@ -151,7 +165,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 
 			<div class="w3l-user">
 				<label class="head">Social Activities</label>
-				<input type="text" name="social_activities"  class="form-control" placeholder="Social Activities" required="">
+				<input type="text" name="social_activities"  class="form-control" placeholder="Social Activities">
 			</div>
 			
 			<div class="clear"></div>
@@ -163,19 +177,43 @@ function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 			<div class="w3l-sym">
 				<label class="head">Email<span class="w3l-star"> * </span></label>
 				<input type="email" name="email" class="form-control" placeholder="Enter Email" required="">
+				<span style="color: red; text-align: center;">
+                      <?php
+                        $email_exits_error = Session::get('email_exits_error');
+                        if($email_exits_error){
+                          echo $email_exits_error;
+                          Session::put('email_exits_error','');
+                        }
+                      ?>
+                    </span>
 			</div>
-			<div class="w3l-num">
-				<label class="head">Password <span class="w3l-star"> * </span></label>
-				<input type="text"  name="password" class="form-control" placeholder="Enter Password " required="">
+			
+			<div class="w3l-num" >
+				<label class="head">Upload Your Image (Max 2MB)</label>
+				<input type="file" name="user_image" class="form-control" placeholder="" required=""><br>
+				<span style="color: red; text-align: center;">
+                      <?php
+                        $user_image_upload_error = Session::get('user_image_upload_error');
+                        if($user_image_upload_error){
+                          echo $user_image_upload_error;
+                          Session::put('user_image_upload_error','');
+                        }
+                      ?>
+                    </span>
 			</div>
+			
 			<div class="w3l-num" style="margin-left: 25px;">
-				<label class="head">Upload Your Image</label>
-				<input type="file" name="user_image" class="form-control" placeholder="" required="">
-			</div>
-			<div class="clear"></div><br>
-			<div class="w3l-num">
-				<label class="head">Upload Registration Card Image (2001)</label>
-				<input type="file" name="reg_card_image" class="form-control" placeholder="" required="">
+				<label class="head">Upload Registration Card Image (2001) (Max 2MB)</label>
+				<input type="file" name="reg_card_image" class="form-control" placeholder="" required=""><br>
+				<span style="color: red; text-align: center;">
+                      <?php
+                        $user_reg_card_image_upload_error = Session::get('user_reg_card_image_upload_error');
+                        if($user_reg_card_image_upload_error){
+                          echo $user_reg_card_image_upload_error;
+                          Session::put('user_reg_card_image_upload_error','');
+                        }
+                      ?>
+                    </span>
 			</div>
 			<div class="clear"></div><br>
 

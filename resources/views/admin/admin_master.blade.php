@@ -22,6 +22,7 @@
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/css/bootstrap-toggle.min.css')}}" rel="stylesheet" type="text/css" />
 
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
 
@@ -87,19 +88,29 @@
                                 <i class="dripicons-menu"></i>
                             </button>
                         </li>
-                        <li class="hide-phone app-search">
+                        <!-- <li class="hide-phone app-search">
                             <form role="search" class="">
                                 <input type="text" placeholder="Search..." class="form-control">
                                 <a href=""><i class="fa fa-search"></i></a>
                             </form>
-                        </li>
+                        </li> -->
                     </ul>
 
                 </nav>
 
             </div>
             <!-- Top Bar End -->
-
+            <script type="text/javascript">
+    
+                function check_delete(){
+                  var check = confirm('Are you sure to delete this?');
+                    if(check){
+                      return true;
+                    }else{
+                      return false;
+                    }
+                }
+              </script>
 
             <!-- ========== Left Sidebar Start ========== -->
 
@@ -112,17 +123,24 @@
                             <li class="text-muted menu-title">Navigation</li>
 
                             <li class="has_sub">
-                                <a href="{{URL::to('/admin-dashboard')}}" class="waves-effect"><i class="ti-home"></i> <span> Dashboard </span></a>
-                                <!-- <ul class="list-unstyled">
-                                    <li><a href="index.html">Dashboard 1</a></li>
-                                    <li><a href="dashboard_2.html">Dashboard 2</a></li>
-                                    <li><a href="dashboard_3.html">Dashboard 3</a></li>
-                                    <li><a href="dashboard_4.html">Dashboard 4</a></li>
-                                </ul> -->
+                                <a href="{{URL::to('/admin-dashboard')}}" class="waves-effect"><i class="ti-home"></i> <span> Unregistered List </span></a>
+                                
                             </li>   
                             <li class="has_sub">
-                                <a href="{{URL::to('/admin-user-list')}}" class="waves-effect"><i class="ti-user"></i> <span>User List</span></a>                               
-                            </li>                                                 
+                                <a href="{{URL::to('/admin-user-list')}}" class="waves-effect"><i class="ti-user"></i> <span>Registered List</span></a>                               
+                            </li>  
+                            <li class="has_sub">
+                                <a href="{{URL::to('/suspend-user-list')}}" class="waves-effect"><i class="ti-user"></i> <span>Suspend List</span></a>                               
+                            </li> 
+                            <li class="has_sub">
+                                <a href="{{URL::to('/admin-notice-board')}}" class="waves-effect"><i class="ti-book"></i> <span>Notice Board</span></a>                               
+                            </li>
+                            <li class="has_sub">
+                                <a href="{{URL::to('/admin-gallery-category')}}" class="waves-effect"><i class="ti-image"></i> <span>Image Category</span></a>                               
+                            </li> 
+                            <li class="has_sub">
+                                <a href="{{URL::to('/admin-gallery')}}" class="waves-effect"><i class="ti-image"></i> <span>Gallery</span></a>                               
+                            </li>                                              
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -198,8 +216,37 @@
         <!-- App js -->
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
+        <script src="{{asset('assets/js/bootstrap-toggle.min.js')}}"></script>
+        <script src="{{asset('assets/js/script.js')}}"></script>
 
         <script type="text/javascript">
+    //         function accept_user(id,email){
+    // var token = $("input[name=_token]").val();
+    // var id = id;
+    // var email = email;
+
+    // $.ajax({
+    //     url: "{{URL::to('/send')}}",
+    //     type: "POST",
+    //     async:false,
+    //     data: {
+    //         "_token":token,
+    //         "done":1,
+    //         "id":id,
+    //         "email":email
+    //     },
+    //     success: function(data){
+
+ 
+    //         //$('#mydiv').fadeIn('slow').html(response);
+    //             $('table').html(data);
+          
+    //     }
+    // });
+
+    // this.parent('td').parent('tr').remove();
+
+
             $(document).ready(function() {
 
                 // Default Datatable
@@ -229,8 +276,37 @@
 
                 table.buttons().container()
                         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+
+                // $("#accept_pending_user").click(function(){
+                //     var token = $("input[name=_token]").val();
+                //     var id = $("#id").val();
+                //     var name = $("#name").val();
+
+                //     $.ajax({
+                //         url: "{{URL::to('/send')}}",
+                //         type: "POST",
+                //         async:false,
+                //         data: {
+                //             "_token":token,
+                //             "done":1,
+                //             "id":id,
+                //             "name":name
+                //         },
+                //         success: function(data){
+
+                 
+                //             //$('#mydiv').fadeIn('slow').html(response);
+                //                 $('table').html(data);
+                          
+                //         }
+                //     })
+                // });
+
+
             } );
         </script>
+
+
 
     </body>
 </html>
